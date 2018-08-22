@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:AzureChat.Controls;assembly=AzureChat"
+             x:Class="AzureChat.App">
+
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="PrimaryColor">#E21A34</Color>
+            <Color x:Key="AccentColor">#F9C22E</Color>
+            <Color x:Key="SeparatorColor">#D3D3D3</Color>
+
+            <Thickness x:Key="DefaultMargin">12</Thickness>
+
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}"/>
+            </Style>
+
+            <Style TargetType="controls:IconLabel" x:Key="IconLabelStyle">
+                <Setter Property="Margin" Value="{StaticResource DefaultMargin}"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="32"/>
+                <Setter Property="TextColor" Value="{StaticResource PrimaryColor}"/>
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

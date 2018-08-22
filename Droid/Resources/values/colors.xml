@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <!-- Primární barva - 500 -->
+  <color name="Primary">#E21A34</color>
+  <!-- Primární barva - 700 -->
+  <color name="PrimaryDark">#BA162C</color>
+  <!-- Hlavní accent barva - 200 -->
+  <color name="Accent">#F9C22E</color>
+</resources>

@@ -1,0 +1,14 @@
+﻿<views:AbstractPage xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:views="clr-namespace:AzureChat.Views;assembly=AzureChat"
+                    x:Class="AzureChat.Views.LoginPage"
+                    Title="Login">
+
+    <StackLayout Padding="12">
+        <Label Text="Please enter your username: " HorizontalOptions="Center"/>
+        <Entry Placeholder="Username" Text="{Binding Username}" HorizontalOptions="Center" WidthRequest="400" Margin="0,0,0,24"/>
+        <Button Text="Log In" Command="{Binding LogInCommand}" HorizontalOptions="Center" WidthRequest="200"/>
+        <ActivityIndicator Margin="12" IsVisible="{Binding IsLoading}" IsRunning="{Binding IsLoading}" VerticalOptions="Start" HorizontalOptions="Center" />
+    </StackLayout>
+
+</views:AbstractPage>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:AbstractPage xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:dataTemplateSelectors="clr-namespace:AzureChat.DataTemplateSelectors;assembly=AzureChat"
+                    xmlns:controls="clr-namespace:AzureChat.Controls;assembly=AzureChat"
+                    xmlns:views="clr-namespace:AzureChat.Views;assembly=AzureChat"
+                    xmlns:effects="clr-namespace:AzureChat.Effects;assembly=AzureChat"
+                    x:Class="AzureChat.Views.ChatPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <!-- template odeslané zprávy -->
+            <DataTemplate x:Key="sentMessageTemplate">
+                <ViewCell>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Frame OutlineColor="{StaticResource PrimaryColor}" BackgroundColor="{StaticResource PrimaryColor}" HasShadow="False" CornerRadius="10" Margin="60, 5, 5, 0" VerticalOptions="Center" HorizontalOptions="End">
+                            <Label Text="{Binding Message}" LineBreakMode="WordWrap" Margin="-5" VerticalOptions="Center" HorizontalOptions="Center" TextColor="White"/>
+                        </Frame>
+                        <Label Text="{Binding DisplayDate}" TextColor="Gray" FontSize="9" HorizontalOptions="End" Margin="60, -3, 5, 5"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+
+            <!-- template přijaté zprávy -->
+            <DataTemplate x:Key="receivedMessageTemplate">
+                <ViewCell>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Frame OutlineColor="{StaticResource PrimaryColor}" BackgroundColor="White" Margin="5, 5, 60, 0" HasShadow="False" CornerRadius="10" VerticalOptions="Center" HorizontalOptions="Start">
+                            <Label Text="{Binding Message}" LineBreakMode="WordWrap" Margin="-5" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black"/>
+                        </Frame>
+                        <Label Text="{Binding DisplayDate}" TextColor="Gray" FontSize="9" HorizontalOptions="Start" Margin="5, -3, 60, 5"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+
+            <!-- DataTemplateSelector pro zprávy -->
+            <dataTemplateSelectors:MessageDataTemplateSelector x:Key="messageDataTemplateSelector" SentMessageTemplate="{StaticResource sentMessageTemplate}" ReceivedMessageTemplate="{StaticResource receivedMessageTemplate}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid ColumnSpacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ListView obsahující zprávy -->
+        <ListView Grid.Column="1" Grid.Row="0" x:Name="ChatListView" VerticalOptions="FillAndExpand" ItemsSource="{Binding Items}" HasUnevenRows="True" ItemTemplate="{StaticResource messageDataTemplateSelector}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" ItemAppearing="ChatListView_ItemAppearing" IsRefreshing="{Binding IsLoading}">
+            <ListView.Effects>
+                <effects:EmptyFooterEffect/>
+            </ListView.Effects>
+        </ListView>
+
+        <!-- View s Editorem a tlačítkem pro odeslání zprávy zabalené do ChatInputContentView kvůli zajíždění pod klávesnici na iOS -->
+        <controls:ChatInputContentView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid x:Name="sendGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Editor x:Name="messageEntry" Text="{Binding NewMessage, Mode=TwoWay}" Grid.Column="0" VerticalOptions="Center" Margin="10,0,0,0" Keyboard="Chat"/>
+                <controls:IconLabel x:Name="SendButton" FontFamily="materialFont" Grid.Column="1" Text="&#xE163;" Style="{StaticResource IconLabelStyle}">
+                    <controls:IconLabel.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SendMessageCommand}"/>
+                    </controls:IconLabel.GestureRecognizers>
+                </controls:IconLabel>
+            </Grid>
+        </controls:ChatInputContentView>
+    </Grid>
+
+</views:AbstractPage>

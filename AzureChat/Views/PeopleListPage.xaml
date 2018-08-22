@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:AbstractPage xmlns="http://xamarin.com/schemas/2014/forms" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:controls="clr-namespace:AzureChat.Controls;assembly=AzureChat"
+                    xmlns:views="clr-namespace:AzureChat.Views;assembly=AzureChat"
+                    xmlns:effects="clr-namespace:AzureChat.Effects;assembly=AzureChat"
+                    x:Class="AzureChat.Views.PeopleListPage"
+                    Title="People">
+
+    <ListView VerticalOptions="FillAndExpand" IsRefreshing="{Binding IsLoading, Mode=TwoWay}" HasUnevenRows="True" HorizontalOptions="FillAndExpand" ItemsSource="{Binding Items}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" CachingStrategy="RecycleElement" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+        <ListView.Effects>
+            <effects:EmptyFooterEffect/>
+        </ListView.Effects>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Grid Padding="12" ColumnSpacing="0" RowSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Text="{Binding Username}" VerticalOptions="Center" LineBreakMode="TailTruncation"/>
+                        <controls:IconLabel Grid.Column="1" Grid.Row="0" FontSize="20" Margin="5" FontFamily="materialFont" Text="&#xE315;" Style="{StaticResource IconLabelStyle}"/>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+
+</views:AbstractPage>
+
+
+
+
+
+
+
